@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { Icons } from "@/components/common/icons";
+import { ProjectStatusBadge } from "@/components/projects/project-card";
 import ProjectDescription from "@/components/projects/project-description";
 import { buttonVariants } from "@/components/ui/button";
 import ChipContainer from "@/components/ui/chip-container";
@@ -10,15 +11,13 @@ import CustomTooltip from "@/components/ui/custom-tooltip";
 import { Projects } from "@/config/projects";
 import { siteConfig } from "@/config/site";
 import { cn, formatDateFromObj } from "@/lib/utils";
-import profileImg from "@/public/profile-img.jpg";
+import profileImg from "@/public/profile.jpg";
 
 interface ProjectPageProps {
   params: Promise<{
     projectId: string;
   }>;
 }
-
-const githubUsername = "namanbarkiya";
 
 export default async function Project({ params }: ProjectPageProps) {
   const { projectId } = await params;
@@ -40,12 +39,15 @@ export default async function Project({ params }: ProjectPageProps) {
         All Projects
       </Link>
       <div>
-        <time
-          dateTime={Date.now().toString()}
-          className="block text-sm text-muted-foreground"
-        >
-          {formatDateFromObj(project.startDate)}
-        </time>
+        <div className="flex items-center gap-3">
+          <time
+            dateTime={Date.now().toString()}
+            className="block text-sm text-muted-foreground"
+          >
+            {formatDateFromObj(project.startDate)}
+          </time>
+          {project.status && <ProjectStatusBadge status={project.status} />}
+        </div>
         <h1 className="flex items-center justify-between mt-2 font-heading text-4xl leading-tight lg:text-5xl">
           {project.companyName}
           <div className="flex items-center">
@@ -73,14 +75,14 @@ export default async function Project({ params }: ProjectPageProps) {
           >
             <Image
               src={profileImg}
-              alt={"naman"}
+              alt={siteConfig.authorName}
               width={42}
               height={42}
               className="rounded-full bg-background"
             />
 
             <div className="flex-1 text-left leading-tight">
-              <p className="font-medium">{"Naman Barkiya"}</p>
+              <p className="font-medium">{siteConfig.authorName}</p>
               <p className="text-[12px] text-muted-foreground">
                 @{siteConfig.username}
               </p>
@@ -90,7 +92,7 @@ export default async function Project({ params }: ProjectPageProps) {
       </div>
 
       <Image
-        src={project.companyLogoImg}
+        src={project.companyLogoImg || "/logo.png"}
         alt={project.companyName}
         width={720}
         height={405}

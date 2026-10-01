@@ -255,13 +255,14 @@
     @apply border-border;
   }
 
-  html,
-  body {
+  html {
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground;
+    min-height: 100vh;
     font-feature-settings:
       "rlig"1,
       "calt"1;
@@ -665,4 +666,31 @@
   border: 1px solid hsl(var(--border));
   margin: 1.5rem auto;
   display: block;
+}
+
+/* Cyber Background Ambient Float Keyframes */
+@keyframes cyber-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+}
+
+@keyframes cyber-float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-2deg);
+  }
+}
+
+.animate-cyber-float {
+  animation: cyber-float 7s ease-in-out infinite;
+}
+
+.animate-cyber-float-reverse {
+  animation: cyber-float-reverse 8s ease-in-out infinite;
 }

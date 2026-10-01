@@ -30,7 +30,7 @@ interface ExperienceCardProps {
 
 const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
   return (
-    <div className="group relative overflow-hidden rounded-lg border bg-background p-4 sm:p-6 transition-all duration-300">
+    <div className="group relative overflow-hidden rounded-xl border border-border/70 bg-card/40 backdrop-blur-md p-4 sm:p-6 transition-all duration-300 h-full flex flex-col justify-between hover:border-cyan-500/50 hover:shadow-[0_0_24px_rgba(0,240,255,0.08)]">
       <div className="flex items-start gap-3 sm:gap-4">
         {experience.logo && (
           <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg border-2 border-border overflow-hidden bg-white flex-shrink-0">

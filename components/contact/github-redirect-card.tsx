@@ -1,9 +1,11 @@
 "use client";
 
+import { Icons } from "@/components/common/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { ExternalLink, Github, Heart } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -19,9 +21,8 @@ export default function GithubRedirectCard() {
       <CardContent className="p-8 flex flex-col items-center text-center">
         <div className="mb-6">
           <Heart
-            className={`w-12 h-12 transition-colors duration-300 ease-out ${
-              isHovered ? "text-red-500" : "text-muted-foreground"
-            }`}
+            className={`w-12 h-12 transition-colors duration-300 ease-out ${isHovered ? "text-red-500" : "text-muted-foreground"
+              }`}
           />
         </div>
         <h2 className="font-heading text-xl tracking-tight lg:text-3xl duration-300">
@@ -30,11 +31,11 @@ export default function GithubRedirectCard() {
         <p className="mt-2 mb-10 font-heading text-lg text-muted-foreground">
           It&#39;s open source. Explore and contribute on GitHub.
         </p>
-        <Github className="w-10 h-10 text-muted-foreground mb-5" />
+        <Icons.gitHub className="w-10 h-10 text-muted-foreground mb-5" />
       </CardContent>
       <CardFooter className="px-8 pb-8 pt-0">
         <Link
-          href={"https://github.com/namanbarkiya/minimal-next-portfolio"}
+          href={siteConfig.links.templateRepo}
           target="_blank"
           className={cn(
             buttonVariants({ variant: "outline" }),
@@ -46,9 +47,8 @@ export default function GithubRedirectCard() {
         </Link>
       </CardFooter>
       <div
-        className={`h-1 bg-gradient-to-r from-red-500 to-red-500 transition-all duration-300 ease-out ${
-          isHovered ? "opacity-100" : "opacity-0"
-        }`}
+        className={`h-1 bg-gradient-to-r from-red-500 to-red-500 transition-all duration-300 ease-out ${isHovered ? "opacity-100" : "opacity-0"
+          }`}
       ></div>
     </Card>
   );
