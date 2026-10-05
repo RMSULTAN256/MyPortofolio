@@ -8,12 +8,11 @@ import { ClientPageWrapper } from "@/components/common/client-page-wrapper";
 import { CyberPageSpotlight } from "@/components/common/cyber-page-spotlight";
 import { CyberSpotlightHero } from "@/components/hero/cyber-spotlight-hero";
 import { Icons } from "@/components/common/icons";
-import ContributionCard from "@/components/contributions/contribution-card";
+import RepositoryCard, { GithubRepository } from "@/components/repositories/repository-card";
 import ExperienceCard from "@/components/experience/experience-card";
 import ProjectCard from "@/components/projects/project-card";
 import SkillsMarquee from "@/components/skills/skills-marquee";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { featuredContributions } from "@/config/contributions";
 import { experiences } from "@/config/experience";
 import { pagesConfig } from "@/config/pages";
 import { featuredProjects } from "@/config/projects";
@@ -29,7 +28,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function IndexPage() {
+async function getRepositories(): Promise<GithubRepository[]> {
+  try {
+    const res = await fetch(
+      "https://api.github.com/users/RMSULTAN256/repos?sort=updated&per_page=10",
+      {
+        headers: process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {},
+        next: { revalidate: 3600 }
+      }
+    );
+    if (!res.ok) return [];
+    const repos: GithubRepository[] = await res.json();
+    return repos.filter((repo) => !repo.fork);
+  } catch (error) {
+    return [];
+  }
+}
+
+export default async function IndexPage() {
+  const repositories = await getRepositories();
   // Structured data for personal portfolio
   const personSchema = {
     "@context": "https://schema.org",
@@ -196,11 +213,11 @@ export default function IndexPage() {
       {/* Cyber Section Divider */}
       <div className="w-full max-w-5xl mx-auto h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent my-6" />
 
-      {/* 03 // CONTRIBUTIONS */}
+      {/* 03 // REPOSITORIES */}
       <AnimatedSection
         direction="up"
         className="container relative space-y-6 py-12 my-8"
-        id="contributions"
+        id="repositories"
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-3 text-center">
           <span className="text-[11px] font-mono tracking-widest uppercase text-cyan-400/90 bg-cyan-500/10 border border-cyan-500/25 px-3 py-0.5 rounded-full">
@@ -210,24 +227,30 @@ export default function IndexPage() {
             as="h2"
             className="font-heading text-3xl leading-[1.1] sm:text-4xl md:text-5xl"
           >
-            {pagesConfig.contributions.title}
+            {pagesConfig.repositories.title}
           </AnimatedText>
           <AnimatedText
             as="p"
             delay={0.2}
             className="max-w-[85%] leading-normal text-muted-foreground sm:text-base sm:leading-7"
           >
-            {pagesConfig.contributions.description}
+            {pagesConfig.repositories.description}
           </AnimatedText>
         </div>
-        <ContributionCard contributions={featuredContributions} />
+        {repositories.length > 0 ? (
+          <RepositoryCard repositories={repositories.slice(0, 3)} />
+        ) : (
+          <div className="text-center text-muted-foreground mt-10">
+            <p>Repositories are currently unavailable.</p>
+          </div>
+        )}
         <AnimatedText delay={0.4} className="flex justify-center">
-          <Link href="/contributions">
+          <Link href="/repositories">
             <Button
               variant={"outline"}
               className="rounded-xl border-border/70 hover:border-cyan-500/50 hover:bg-cyan-500/10"
             >
-              <Icons.chevronDown className="mr-2 h-4 w-4 text-cyan-400" /> View All Contributions
+              <Icons.chevronDown className="mr-2 h-4 w-4 text-cyan-400" /> View All Repositories
             </Button>
           </Link>
         </AnimatedText>

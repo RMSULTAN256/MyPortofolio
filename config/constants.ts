@@ -174,7 +174,7 @@ export type ValidPages =
   | "projects"
   | "experience"
   | "contact"
-  | "contributions"
+  | "repositories"
   | "resume"
   | "blogs"
   | "services"

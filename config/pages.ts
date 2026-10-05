@@ -63,13 +63,13 @@ export const pagesConfig: PagesConfig = {
       description: "Contact Sultan Arif.",
     },
   },
-  contributions: {
-    title: "Contributions",
-    description: "Open-source contributions and community involvement.",
+  repositories: {
+    title: "Repositories",
+    description: "My open-source projects and GitHub repositories.",
     metadata: {
-      title: "Contributions",
+      title: "Repositories",
       description:
-        "Sultan Arif's open-source contributions and community involvement.",
+        "Sultan Arif's GitHub repositories and projects.",
     },
   },
   resume: {

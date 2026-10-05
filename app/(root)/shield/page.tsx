@@ -8,9 +8,9 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "3D Cyber Security Shield | Sultan Arif",
+  title: "3D SIEM Architecture & SOC Defense | Sultan Arif",
   description:
-    "Interactive 3D Cyber Security Shield built with Three.js, procedural hexagonal armor plates, circuit traces, Tron grid floor, and interactive diagnostic nodes.",
+    "Interactive 3D SIEM (Security Information & Event Management) telemetry visualization with live server log scanning, threat actor IP tracking, MITRE ATT&CK correlation, and automated SOAR response.",
   alternates: {
     canonical: `${siteConfig.url}/shield`,
   },
@@ -33,10 +33,10 @@ export default function CyberShieldPage() {
             </Link>
           </div>
           <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl text-foreground">
-            Cyber Security Shield 3D
+            SIEM & SOC 3D Architecture
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Procedural 3D hexagonal shield model, live circuit traces, Tron grid floor, and interactive network nodes.
+          <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
+            Simulasi interaktif pipeline SIEM end-to-end: pemantauan log server, pelacakan IP penyerang & aktivitas MITRE ATT&CK, parser normalisasi, aturan korelasi Sigma, hingga playbook aksi otomatis SOAR.
           </p>
         </div>
 
